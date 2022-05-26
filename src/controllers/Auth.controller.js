@@ -14,7 +14,7 @@ class AuthController {
     this.dependencies = dependencies;
     this.logger = this.dependencies.logger;
     this.e = this.dependencies.errors;
-   // this.mail = this.dependencies.EmailService();
+    // this.mail = this.dependencies.EmailService();
     this.secretKey = this.dependencies.env.SECRET;
     this.login = this.login.bind(this);
   }

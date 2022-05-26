@@ -104,7 +104,7 @@ const AuthModelSchema = new Schema({
     type: Schema.Types.Mixed,
   },
 },
- { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
+{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
 );
 
 AuthModelSchema.index({ user: 1, phone_number: 1, email: 1 });
