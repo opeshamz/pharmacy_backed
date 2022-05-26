@@ -1,4 +1,6 @@
 node_modules
+*.DS_Store
+.vscode
+.local.env
+mongodb.yaml
 .env
-.local
-.env.local
