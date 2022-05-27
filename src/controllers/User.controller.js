@@ -1,68 +1,51 @@
 /* eslint-disable camelcase */
 const { isEmpty } = require('lodash');
-const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const User = require('../models/user.model');
+const User = require('../models/user.model');
 const Auth = require('../models/auth.model');
 const { successResponse, errorResponse } = require('../utils/responses');
-// const { generateCode } = require('../utils/helpers');
-// const { randomStringGen } = require('../utils/helpers');
+const { generateCode } = require('../utils/helpers');
 
-
-class AuthController {
+class UserController {
   constructor(dependencies = {}) {
     this.dependencies = dependencies;
     this.logger = this.dependencies.logger;
     this.e = this.dependencies.errors;
     // this.mail = this.dependencies.EmailService();
     this.secretKey = this.dependencies.env.SECRET;
-    this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
   }
 
-  async login(req, res) {
-    const { idMeta, password } = req.body;
-    const auth = await Auth.findOne({ [idMeta.type]: idMeta.value })
-      .populate({ path: 'user', populate: { path: 'preferences' } }).lean();
-    if (isEmpty(auth)) {
-      throw new this.e.UnauthorizedError('User not found. Please check your credentials');
-    }
-    const checkPassword = await bcrypt.compare(password, auth.password);
-    if (!checkPassword) {
-      this.logger.info(
-        `User with phone_number ${auth.identifier} tried to sign in with a wrong password`,
-      );
-      throw new this.e.UnauthorizedError(
-        'Account details supplied is incorrect, please check and try again',
-      );
-    }
-    const response = { user_data: auth.user, token: null, expires: '7 days' };
-    const token = this.constructor.generateToken(auth.user);
-    response.token = token;
-    this.logger.info(`User ${req.body.identifier} signed in successfully.`);
-    return successResponse(res, 200, response, 'Login successful');
-  }
+  // eslint-disable-next-line class-methods-use-this
+  // eslint-disable-next-line consistent-return
   async register(req, res) {
-    const { idMeta, password } = req.body;
-    const auth = await Auth.findOne({ [idMeta.type]: idMeta.value })
-      .populate({ path: 'user', populate: { path: 'preferences' } }).lean();
-    if (isEmpty(auth)) {
-      throw new this.e.UnauthorizedError('User not found. Please check your credentials');
+    const { email } = req.body;
+    const authExist = await Auth.findOne({ email }).lean();
+    if (!isEmpty(authExist)) {
+      if (authExist.email) {
+        throw new this.e.UnauthorizedError('User already exist, please login');
+      }
+      if (!authExist.is_verified) {
+        return errorResponse(res, 307, 'please verify your phone number to complete registration');
+      }
     }
-    const checkPassword = await bcrypt.compare(password, auth.password);
-    if (!checkPassword) {
-      this.logger.info(
-        `User with phone_number ${auth.identifier} tried to sign in with a wrong password`,
-      );
-      throw new this.e.UnauthorizedError(
-        'Account details supplied is incorrect, please check and try again',
-      );
-    }
-    const response = { user_data: auth.user, token: null, expires: '7 days' };
-    const token = this.constructor.generateToken(auth.user);
-    response.token = token;
-    this.logger.info(`User ${req.body.identifier} signed in successfully.`);
-    return successResponse(res, 200, response, 'Login successful');
+    const user = await User.create({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      phone_number: req.body.phone_number,
+      gender: req.body.gender,
+    });
+    const email_verification_token = generateCode(6);
+    await Auth.create({
+      user: user._id,
+      email: req.body.email,
+      password: req.body.password,
+      email_verification_token,
+    });
+
+    this.logger.info(
+      `user profile: ${req.body.email} created sucessfully.`,
+    );
+    return successResponse(res, 201, {}, `Please check ${req.body.email} for verification code`);
   }
 }
-
-module.exports = AuthController;
+module.exports = UserController;

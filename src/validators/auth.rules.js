@@ -75,4 +75,3 @@ exports.resetPassword = keys({
     .max(50)
     .description("User's password (8 min, 50 characters max)"),
 });
-

@@ -10,19 +10,11 @@ const userSchema = new Schema({
   first_name: {
     type: String,
     maxlength: 60,
-    trim: true,
   },
   last_name: {
     type: String,
     maxlength: 60,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    maxlength: 60,
-    trim: true,
-    lowercase: true,
+
   },
   phone_number: {
     type: String,
@@ -47,7 +39,7 @@ const userSchema = new Schema({
     type: String,
     default: 'NG',
   },
-   user_type: {
+  user_type: {
     type: String,
     default: 'CUSTOMER',
   },
@@ -73,4 +65,4 @@ const userSchema = new Schema({
     default: false,
   },
 }, { timestamps: true });
-module.exports = model('userModel', userSchema);
+module.exports = model('users', userSchema);

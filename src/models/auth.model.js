@@ -6,10 +6,8 @@ const AuthModelSchema = new Schema({
   email: {
     type: String,
     lowercase: true,
-  },
-  phone_number: {
-    type: String,
-    unique: false,
+    trim: true,
+    unique: true,
   },
   user: {
     type: Schema.Types.ObjectId,
@@ -25,45 +23,8 @@ const AuthModelSchema = new Schema({
       default: [],
     },
   ],
-  email_verification: {
-    token: {
-      type: String,
-      default: null,
-    },
-    expires: {
-      type: Number,
-      default: 0,
-    },
-    status: {
-      type: Boolean,
-      default: false,
-    },
-    role: {
-      type: String,
-    },
-    attempts: {
-      type: Number,
-      default: 0,
-    },
-  },
-  sms_verification: {
-    token: {
-      type: String,
-      default: null,
-    },
-    expires: {
-      type: Number,
-      default: 0,
-    },
-    status: {
-      type: Boolean,
-      default: false,
-    },
-    attempts: {
-      type: Number,
-      default: 0,
-    },
-  },
+  email_verification_token: Number,
+  email_token_expiry: Date,
   reset_password: {
     token: {
       type: String,
@@ -85,29 +46,13 @@ const AuthModelSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  is_pre_verified: { // If atleast email or password is verified
+
+  is_deleted: {
     type: Boolean,
     default: false,
   },
-  temp_token: {
-    type: String,
-  },
-
-  is_merchant: {
-    type: Boolean,
-  },
-  device_identifier: {
-    type: String,
-    default: null,
-  },
-  device_meta: {
-    type: Schema.Types.Mixed,
-  },
 },
- { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
-);
-
-AuthModelSchema.index({ user: 1, phone_number: 1, email: 1 });
+{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 // eslint-disable-next-line func-names
 AuthModelSchema.pre('save', function (next) {
