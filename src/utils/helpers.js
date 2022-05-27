@@ -2,7 +2,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable camelcase */
 const jwt = require('jsonwebtoken');
-const axios = require('axios');
+// const axios = require('axios');
 const { isEmpty } = require('lodash');
 /**
  * Generate A random string of any length
@@ -62,15 +62,6 @@ function getOrderCurrentPosition(order_status, ORDER_STATUS) {
   }
   return null;
 }
-function getOrderNextPosition(order_status, ORDER_STATUS) {
-  const i = 0;
-  for (i; i < ORDER_STATUS.length; i + 1) {
-    if (order_status === ORDER_STATUS[i] && (i !== ORDER_STATUS - 1) === 0) {
-      return i + 1;
-    }
-  }
-  return i;
-}
 
 function validateNextStatus(orderStatus, currentStatus, nextStatus) {
   const indexOfCurrentStatus = orderStatus.indexOf(currentStatus);
@@ -106,7 +97,7 @@ function uniqueID() {
   return Math.floor(Math.random() * Date.now());
 }
 
-  // eslint-disable-next-line no-restricted-syntax
+// eslint-disable-next-line no-restricted-syntax
 function remove_duplicates_safe(arr) {
   const ret_arr = [];
   for (let i = 0; i < arr.length; i++) {
@@ -150,14 +141,13 @@ module.exports = {
   getOrderCurrentPosition,
   convertUTCDateToLocalDate,
 
-  
   dateTimeString,
   base64tostr,
   generateCode,
   uniqueID,
   formatDate,
   GetDate,
- 
+
   validateNextStatus,
   remove_duplicates_safe,
   generateJwtToken,

@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 const jwt = require('jsonwebtoken');
-const { isEmpty } = require('lodash');
+// const { isEmpty } = require('lodash');
 const configObj = require('../../config');
 const { errorResponse } = require('../utils/responses');
 

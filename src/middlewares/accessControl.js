@@ -7,7 +7,6 @@
 // // const accessControlMiddleware = new AccessControlMiddleware(ac);
 // const { errorResponse } = require('../utils/responses');
 
-
 // const unauthorizedResponse = (
 //   res,
 //   err,

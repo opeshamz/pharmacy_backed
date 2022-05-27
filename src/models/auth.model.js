@@ -43,6 +43,7 @@ const AuthModelSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  
   is_deleted: {
     type: Boolean,
     default: false,

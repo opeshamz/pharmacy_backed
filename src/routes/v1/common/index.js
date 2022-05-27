@@ -36,8 +36,8 @@ const userController = new UserController(dependencies);
 
 router
 
-.post(
-  '/users/register',
-  userController.register,
-);
+  .post(
+    '/users/register',
+    userController.register,
+  );
 module.exports = router;

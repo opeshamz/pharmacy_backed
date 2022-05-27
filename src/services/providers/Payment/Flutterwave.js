@@ -53,7 +53,7 @@ class Flutterwave {
     const response = await this._client.post('/v3/payments', value);
     return response.data;
   }
-  
+
   async verify(id) {
     const { error, value } = verifySpec.validate(id);
     if (error) throw new ValidationError(error.message);

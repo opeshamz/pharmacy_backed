@@ -64,4 +64,4 @@ const userSchema = new Schema({
     default: false,
   },
 }, { timestamps: true });
-module.exports = model('userModel', userSchema);
+module.exports = model('users', userSchema);
