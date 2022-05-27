@@ -14,7 +14,6 @@ const userSchema = new Schema({
   last_name: {
     type: String,
     maxlength: 60,
-
   },
   phone_number: {
     type: String,
