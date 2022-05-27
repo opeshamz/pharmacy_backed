@@ -10,13 +10,10 @@ const userSchema = new Schema({
   first_name: {
     type: String,
     maxlength: 60,
-    trim: true,
   },
   last_name: {
     type: String,
     maxlength: 60,
-    required: true,
-    trim: true,
   },
   phone_number: {
     type: String,

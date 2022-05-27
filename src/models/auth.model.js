@@ -6,35 +6,22 @@ const AuthModelSchema = new Schema({
   email: {
     type: String,
     lowercase: true,
+    trim: true,
+    unique: true,
   },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',
   },
-  password: {
-    type: String,
-    default: null,
-  },
+  password: String,
   old_passwords: [
     {
       type: String,
       default: [],
     },
   ],
-  email_verification: {
-    token: {
-      type: String,
-      default: null,
-    },
-    expires: {
-      type: Number,
-      default: 0,
-    },
-    status: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  email_verification_token: Number,
+  email_token_expiry: Date,
   reset_password: {
     token: {
       type: String,
@@ -53,10 +40,6 @@ const AuthModelSchema = new Schema({
     default: false,
   },
   is_verified: {
-    type: Boolean,
-    default: false,
-  },
-  is_pre_verified: { // If atleast email or password is verified
     type: Boolean,
     default: false,
   },
