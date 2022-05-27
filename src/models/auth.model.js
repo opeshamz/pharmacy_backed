@@ -7,10 +7,6 @@ const AuthModelSchema = new Schema({
     type: String,
     lowercase: true,
   },
-  phone_number: {
-    type: String,
-    unique: false,
-  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',
@@ -38,31 +34,6 @@ const AuthModelSchema = new Schema({
       type: Boolean,
       default: false,
     },
-    role: {
-      type: String,
-    },
-    attempts: {
-      type: Number,
-      default: 0,
-    },
-  },
-  sms_verification: {
-    token: {
-      type: String,
-      default: null,
-    },
-    expires: {
-      type: Number,
-      default: 0,
-    },
-    status: {
-      type: Boolean,
-      default: false,
-    },
-    attempts: {
-      type: Number,
-      default: 0,
-    },
   },
   reset_password: {
     token: {
@@ -89,25 +60,12 @@ const AuthModelSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  temp_token: {
-    type: String,
-  },
-
-  is_merchant: {
+  is_deleted: {
     type: Boolean,
-  },
-  device_identifier: {
-    type: String,
-    default: null,
-  },
-  device_meta: {
-    type: Schema.Types.Mixed,
+    default: false,
   },
 },
-{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } }
-);
-
-AuthModelSchema.index({ user: 1, phone_number: 1, email: 1 });
+{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
 // eslint-disable-next-line func-names
 AuthModelSchema.pre('save', function (next) {

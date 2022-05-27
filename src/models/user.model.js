@@ -41,7 +41,7 @@ const userSchema = new Schema({
     type: String,
     default: 'NG',
   },
-   user_type: {
+  user_type: {
     type: String,
     default: 'CUSTOMER',
   },
