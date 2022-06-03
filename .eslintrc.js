@@ -24,6 +24,7 @@ module.exports = {
 
     'linebreak-style': 0,
     camelcase: 0,
+    'func-names': 0,
 
     // Shouldn't use console.* -- use a proper logger instead, e.g.
     // https://www.npmjs.com/package/winston

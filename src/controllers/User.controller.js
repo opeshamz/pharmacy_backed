@@ -41,7 +41,6 @@ class UserController {
       password: req.body.password,
       email_verification_token,
     });
-
     this.logger.info(
       `user profile: ${req.body.email} created sucessfully.`,
     );

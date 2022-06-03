@@ -55,13 +55,5 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  is_verified: {
-    type: Boolean,
-    default: false,
-  },
-  is_deleted: {
-    type: Boolean,
-    default: false,
-  },
 }, { timestamps: true });
 module.exports = model('users', userSchema);

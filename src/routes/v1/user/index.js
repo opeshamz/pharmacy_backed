@@ -8,21 +8,18 @@ const errors = require('../../../utils/errors');
 const UserController = require('../../../controllers/User.controller');
 const AuthController = require('../../../controllers/Auth.controller');
 
-// const rules = require('../../../validators');
+const rules = require('../../../validators');
 
 // const EmailService = require('../../../services/providers/Email');
 // const PaymentService = require('../../../services/providers/Payment');
 
-//
 const dependencies = {
   logger,
   env,
   errors,
-
   // EmailService,
   // PaymentService,
 };
-
 const router = new Router();
 
 // // const testController = new TestController(dependencies);
@@ -39,6 +36,7 @@ router.post(
 );
 router.post(
   '/users/login',
+  rules('login'),
   authController.login,
 );
 module.exports = router;

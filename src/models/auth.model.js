@@ -11,7 +11,7 @@ const AuthModelSchema = new Schema({
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'users',
   },
   password: String,
   old_passwords: [
@@ -43,7 +43,7 @@ const AuthModelSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  
+
   is_deleted: {
     type: Boolean,
     default: false,

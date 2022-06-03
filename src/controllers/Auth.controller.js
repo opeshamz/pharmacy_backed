@@ -26,14 +26,17 @@ class AuthController {
     if (!auth) {
       throw new this.e.UnauthorizedError('User does not exist, please sign up');
     }
+    if (!auth.is_verified) {
+      return errorResponse(res, 307, 'please verify your email to complete registration');
+    }
     const checkPassword = await bcrypt.compare(password, auth.password);
     if (!checkPassword) {
       throw new this.e.UnauthorizedError('invalid password');
     }
     const { user } = auth;
-    const token = jwt.sign(user, process.env.JWT_SEC, { expiresIn: '3d' });
+    const token = jwt.sign(user, process.env.JWT_SEC, { expiresIn: '7d' });
     const response = { user_data: auth.user, token, expires: '7 days' };
-    return successResponse(res, 200, { response }, 'user successfully logged in');
+    return successResponse(res, 200, response, 'user successfully logged in');
   }
 
   async verifyEmail(req, res) {
