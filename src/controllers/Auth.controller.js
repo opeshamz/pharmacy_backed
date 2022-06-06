@@ -41,18 +41,18 @@ class AuthController {
 
   async verifyEmail(req, res) {
     const { token } = req.body;
-    const authExist = await Auth.findOne({ email_verification_token: token });
+    const authExist = await Auth.findOne({ token });
     if (!authExist) {
       throw new this.e.UnauthorizedError('User does not exist please register');
     }
-    if (authExist.email_verification_token !== token) {
+    if (authExist.token !== token) {
       throw new this.e.UnauthorizedError('Invalid token, please check email for the right token');
     }
     if (authExist.is_verified) {
       return errorResponse(res, 307, 'Email already verified, please log in');
     }
     authExist.is_verified = true;
-    authExist.email_verification_token = null;
+    authExist.token = null;
     await authExist.save();
     return successResponse(res, 200, {}, 'Email has been successfully verified');
   }

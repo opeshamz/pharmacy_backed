@@ -34,12 +34,12 @@ class UserController {
       phone_number: req.body.phone_number,
       gender: req.body.gender,
     });
-    const email_verification_token = generateCode(6);
+    const token = generateCode(6);
     await Auth.create({
       user: user._id,
       email: req.body.email,
       password: req.body.password,
-      email_verification_token,
+      token,
     });
     this.logger.info(
       `user profile: ${req.body.email} created sucessfully.`,

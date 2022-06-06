@@ -28,6 +28,7 @@ const authController = new AuthController(dependencies);
 
 router.post(
   '/users/register',
+  rules('register'),
   userController.register,
 );
 router.post(
