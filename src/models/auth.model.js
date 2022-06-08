@@ -20,6 +20,12 @@ const AuthModelSchema = new Schema({
       default: [],
     },
   ],
+  new_passwords: [
+    {
+      type: String,
+      default: [],
+    },
+  ],
   token: Number,
   token_expiry: Date,
   is_suspended: {

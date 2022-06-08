@@ -40,4 +40,20 @@ router.post(
   rules('login'),
   authController.login,
 );
+router.post(
+  '/users/forgotpassword',
+  authController.forgotPassword,
+);
+router.post(
+  '/users/resetpassword',
+  authController.resetPassword,
+);
+router.patch(
+  '/users/changepassword',
+  authController.changePassword,
+);
+router.get(
+  '/users/:_id',
+  userController.getUser,
+);
 module.exports = router;

@@ -13,6 +13,7 @@ class UserController {
     // this.mail = this.dependencies.EmailService();
     this.secretKey = this.dependencies.env.SECRET;
     this.register = this.register.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -45,6 +46,16 @@ class UserController {
       `user profile: ${req.body.email} created sucessfully.`,
     );
     return successResponse(res, 201, {}, `Please check ${req.body.email} for verification code`);
+  }
+
+  // eslint-disable-next-line consistent-return
+  async getUser(req, res) {
+    const { _id } = req.params;
+    const user = await User.findById({ _id }).lean();
+    if (!user) {
+      throw new this.e.UnauthorizedError('User does not exist, please sign up');
+    }
+    return successResponse(res, 200, user, 'User successfully retrieved');
   }
 }
 module.exports = UserController;
