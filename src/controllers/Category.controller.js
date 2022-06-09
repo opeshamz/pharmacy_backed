@@ -46,7 +46,7 @@ class CategoryController {
 
   // eslint-disable-next-line class-methods-use-this
   async getAllCategory(req, res) {
-    const categories = await Category.find({});
+    const categories = await Category.find({}).lean();
     if (!categories) {
       return successResponse(res, 200, {}, ' No category found');
     }
@@ -55,12 +55,12 @@ class CategoryController {
 
   async updateCategory(req, res) {
     const { _id } = req.params;
-    const category = await Category.findById({ _id });
+    const category = await Category.findById({ _id }).lean();
     if (!category) {
       throw new this.e.BadRequestError('Category does not exist, please create a new category');
     }
     const { name } = req.body;
-    const categoryExist = await Category.findOne({ name });
+    const categoryExist = await Category.findOne({ name }).lean();
     if (categoryExist) {
       throw new this.e.BadRequestError('Category already exist, please change the name');
     }
@@ -74,11 +74,11 @@ class CategoryController {
 
   async deleteCategory(req, res) {
     const { _id } = req.params;
-    const category = await Category.findById({ _id });
+    const category = await Category.findById({ _id }).lean();
     if (!category) {
       throw new this.e.BadRequestError('Category does not exist, please create a new category');
     }
-    const deletedCategory = await Category.findByIdAndDelete({ _id });
+    const deletedCategory = await Category.findByIdAndDelete({ _id }).lean();
     return successResponse(res, 200, deletedCategory, 'Category deleted successfully');
   }
 
@@ -99,7 +99,7 @@ class CategoryController {
 
   async getSubCategory(req, res) {
     const { _id } = req.params;
-    const subCategory = await SubCategory.findById({ _id });
+    const subCategory = await SubCategory.findById({ _id }).lean();
     if (!subCategory) {
       throw new this.e.BadRequestError('Sub Category does not exist, please create a new sub category');
     }
@@ -116,7 +116,7 @@ class CategoryController {
 
   async updateSubCategory(req, res) {
     const { _id } = req.params;
-    const subCategory = await SubCategory.findById({ _id });
+    const subCategory = await SubCategory.findById({ _id }).lean();
     if (!subCategory) {
       throw new this.e.BadRequestError('Sub Category does not exist, please create a new sub category');
     }
@@ -135,7 +135,7 @@ class CategoryController {
 
   async deleteSubCategory(req, res) {
     const { _id } = req.params;
-    const subCategory = await SubCategory.findById({ _id });
+    const subCategory = await SubCategory.findById({ _id }).lean();
     if (!subCategory) {
       throw new this.e.BadRequestError('Sub Category does not exist, please create a new sub category');
     }

@@ -9,6 +9,7 @@ const errors = require('../../../utils/errors');
 
 // eslint-disable-next-line import/no-unresolved
 const CategoryController = require('../../../controllers/Category.controller');
+const ProductController = require('../../../controllers/Product.controller');
 // const SubCategoryController = require('../../../controllers/Sub_category.controller');
 // const AuthController = require('../../../controllers/Auth.controller');
 
@@ -34,6 +35,7 @@ const dependencies = {
 };
 const router = new Router();
 const categoryController = new CategoryController(dependencies);
+const productController = new ProductController(dependencies);
 
 // const authController = new AuthController(dependencies);
 
@@ -73,9 +75,28 @@ router.put(
   '/updatesubcategory/:_id',
   categoryController.updateSubCategory,
 );
-
 router.delete(
   '/deletesubcategory/:_id',
   categoryController.deleteSubCategory,
+);
+router.post(
+  '/product/createProduct',
+  productController.createProduct,
+);
+router.get(
+  '/product/:_id',
+  productController.getProduct,
+);
+router.get(
+  '/product/',
+  productController.getAllProduct,
+);
+router.put(
+  '/updateproduct/:_id',
+  productController.updateProduct,
+);
+router.delete(
+  '/deleteproduct/:_id',
+  productController.deleteProduct,
 );
 module.exports = router;

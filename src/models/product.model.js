@@ -14,7 +14,7 @@ const productSchema = new Schema({
     type: String,
   },
   SKU: {
-    type: Number,
+    type: String,
   },
   images: {
     type: String,

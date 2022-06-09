@@ -56,4 +56,12 @@ router.get(
   '/users/:_id',
   userController.getUser,
 );
+router.get(
+  '/users/',
+  userController.getAllUser,
+);
+router.delete(
+  '/users/deleteuser/:_id',
+  userController.deleteUser,
+);
 module.exports = router;

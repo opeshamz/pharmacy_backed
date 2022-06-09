@@ -14,6 +14,8 @@ class UserController {
     this.secretKey = this.dependencies.env.SECRET;
     this.register = this.register.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.getAllUser = this.getAllUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -56,6 +58,25 @@ class UserController {
       throw new this.e.UnauthorizedError('User does not exist, please sign up');
     }
     return successResponse(res, 200, user, 'User successfully retrieved');
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async getAllUser(req, res) {
+    const users = await User.find({}).lean();
+    if (!users) {
+      return successResponse(res, 200, {}, 'No user found');
+    }
+    return successResponse(res, 200, users, 'All users retrieved successfully');
+  }
+
+  async deleteUser(req, res) {
+    const { _id } = req.params;
+    const user = await User.findById({ _id }).lean();
+    if (!user) {
+      throw new this.e.UnauthorizedError('User does not exist, please sign up');
+    }
+    const deleteUser = await User.findByIdAndDelete({ _id });
+    return successResponse(res, 200, deleteUser, 'User successfully deleted');
   }
 }
 module.exports = UserController;
