@@ -20,4 +20,4 @@ const subCategorySchema = new Schema({
 
 }, { timestamp: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
-module.export = model('sub-category', subCategorySchema);
+module.exports = model('sub_category', subCategorySchema);
