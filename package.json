@@ -20,6 +20,7 @@
     "axios": "^0.21.4",
     "bcrypt": "^5.0.1",
     "bull": "^4.1.4",
+    "chai": "^4.3.6",
     "cloudinary": "^1.27.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -45,6 +46,8 @@
     "naija-state-local-government": "^1.1.2",
     "nodemon": "^2.0.12",
     "pino": "^6.13.0",
+    "sinon": "^14.0.0",
+    "sinon-chai": "^3.7.0",
     "twilio": "^3.67.1",
     "ws": "^8.2.3"
   },

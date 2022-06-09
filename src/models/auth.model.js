@@ -20,21 +20,14 @@ const AuthModelSchema = new Schema({
       default: [],
     },
   ],
-  email_verification_token: Number,
-  email_token_expiry: Date,
-  reset_password: {
-    token: {
+  new_passwords: [
+    {
       type: String,
-      default: null,
+      default: [],
     },
-    expires: {
-      type: Number,
-      default: 0,
-    },
-    code: {
-      type: String,
-    },
-  },
+  ],
+  token: Number,
+  token_expiry: Date,
   is_suspended: {
     type: Boolean,
     default: false,

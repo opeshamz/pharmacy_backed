@@ -13,6 +13,7 @@ class UserController {
     // this.mail = this.dependencies.EmailService();
     this.secretKey = this.dependencies.env.SECRET;
     this.register = this.register.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -34,17 +35,27 @@ class UserController {
       phone_number: req.body.phone_number,
       gender: req.body.gender,
     });
-    const email_verification_token = generateCode(6);
+    const token = generateCode(6);
     await Auth.create({
       user: user._id,
       email: req.body.email,
       password: req.body.password,
-      email_verification_token,
+      token,
     });
     this.logger.info(
       `user profile: ${req.body.email} created sucessfully.`,
     );
     return successResponse(res, 201, {}, `Please check ${req.body.email} for verification code`);
+  }
+
+  // eslint-disable-next-line consistent-return
+  async getUser(req, res) {
+    const { _id } = req.params;
+    const user = await User.findById({ _id }).lean();
+    if (!user) {
+      throw new this.e.UnauthorizedError('User does not exist, please sign up');
+    }
+    return successResponse(res, 200, user, 'User successfully retrieved');
   }
 }
 module.exports = UserController;
