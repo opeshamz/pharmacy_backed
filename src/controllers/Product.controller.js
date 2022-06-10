@@ -72,7 +72,7 @@ class ProductController {
     const { _id } = req.params;
     const product = await Product.findById({ _id }).lean();
     if (!product) {
-      throw new this.e.BadRequestError('Product does not exist, please create a new product');
+      throw new this.e.BadRequestError('Product does not exist');
     }
     const deleteProduct = await Product.findByIdAndDelete({ _id }).lean();
     return successResponse(res, 200, deleteProduct, 'Product deleted successfully');

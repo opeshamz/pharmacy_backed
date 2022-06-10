@@ -10,6 +10,7 @@ const errors = require('../../../utils/errors');
 // eslint-disable-next-line import/no-unresolved
 const CategoryController = require('../../../controllers/Category.controller');
 const ProductController = require('../../../controllers/Product.controller');
+const PrescriptionController = require('../../../controllers/Prescription.controller');
 // const SubCategoryController = require('../../../controllers/Sub_category.controller');
 // const AuthController = require('../../../controllers/Auth.controller');
 
@@ -36,6 +37,7 @@ const dependencies = {
 const router = new Router();
 const categoryController = new CategoryController(dependencies);
 const productController = new ProductController(dependencies);
+const prescriptionController = new PrescriptionController(dependencies);
 
 // const authController = new AuthController(dependencies);
 
@@ -98,5 +100,25 @@ router.put(
 router.delete(
   '/deleteproduct/:_id',
   productController.deleteProduct,
+);
+router.post(
+  '/prescription/createprescription',
+  prescriptionController.createPrescription,
+);
+router.get(
+  '/prescription/:_id',
+  prescriptionController.getPrescription,
+);
+router.get(
+  '/prescription/',
+  prescriptionController.getAllPrescription,
+);
+router.put(
+  '/updateprescription/:_id',
+  prescriptionController.updatePrescription,
+);
+router.delete(
+  '/deleteprescription/:_id',
+  prescriptionController.deletePrescription,
 );
 module.exports = router;

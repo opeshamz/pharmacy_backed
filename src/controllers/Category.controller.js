@@ -76,7 +76,7 @@ class CategoryController {
     const { _id } = req.params;
     const category = await Category.findById({ _id }).lean();
     if (!category) {
-      throw new this.e.BadRequestError('Category does not exist, please create a new category');
+      throw new this.e.BadRequestError('Category does not exist');
     }
     const deletedCategory = await Category.findByIdAndDelete({ _id }).lean();
     return successResponse(res, 200, deletedCategory, 'Category deleted successfully');
@@ -137,7 +137,7 @@ class CategoryController {
     const { _id } = req.params;
     const subCategory = await SubCategory.findById({ _id }).lean();
     if (!subCategory) {
-      throw new this.e.BadRequestError('Sub Category does not exist, please create a new sub category');
+      throw new this.e.BadRequestError('Sub Category does not exist');
     }
     const deleteSubCategory = await SubCategory.findByIdAndDelete({ _id }).lean();
     return successResponse(res, 200, deleteSubCategory, 'Sub Category deleted successfully');
