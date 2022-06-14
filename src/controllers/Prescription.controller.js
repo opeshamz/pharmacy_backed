@@ -15,7 +15,7 @@ class PrescriptionController {
 
   async createPrescription(req, res) {
     const { name } = req.body;
-    const prescription = await Prescription.findOne({ name }).lean();
+    const prescription = await Prescription.findOne({ name });
     if (prescription) {
       throw new this.e.BadRequestError('You have submitted this prescription already');
     }
@@ -26,6 +26,7 @@ class PrescriptionController {
       brand: req.body.brand,
       quantity: req.body.quantity,
     });
+    newPrescription.save();
     return successResponse(res, 200, newPrescription, 'Prescription submitted successfully');
   }
 

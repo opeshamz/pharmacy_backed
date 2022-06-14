@@ -11,6 +11,7 @@ class CartController {
     this.addToCart = this.addToCart.bind(this);
     this.getCartTotal = this.getCartTotal.bind(this);
     this.deleteCart = this.deleteCart.bind(this);
+    this.removeCartItem = this.removeCartItem.bind(this);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -56,6 +57,24 @@ class CartController {
     cart.total = cart.cart_items.reduce((acc, curr) => acc + curr.total, 0);
     cart.save();
     return successResponse(res, 200, cart, 'Item added to cart successfully');
+  }
+
+  async removeCartItem(req, res) {
+    const { _id } = req.params;
+    const cart = await Cart.findById({ _id });
+    if (!cart) {
+      throw new this.e.BadRequestError('Cart does not exist , please add items to your cart');
+    }
+    const { product_id } = req.body;
+    const cartItem = await Cart.findOne({ cart_items: { $elemMatch: { product_id } } });
+    if (!cartItem) {
+      throw new this.e.BadRequestError('Item does not exist in cart, please add the item to cart');
+    }
+    const index = cart.cart_items.findIndex((item) => item.product_id === product_id);
+    cart.cart_items.splice(index, 1);
+    cart.total = cart.cart_items.reduce((acc, curr) => acc + curr.total, 0);
+    cart.save();
+    return successResponse(res, 200, cart, 'Item removed from cart successfully');
   }
 
   async getCart(req, res) {

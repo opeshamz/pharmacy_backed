@@ -12,6 +12,7 @@ const CategoryController = require('../../../controllers/Category.controller');
 const ProductController = require('../../../controllers/Product.controller');
 const PrescriptionController = require('../../../controllers/Prescription.controller');
 const CartController = require('../../../controllers/Cart.controller');
+const OrderController = require('../../../controllers/Order.controller');
 // const SubCategoryController = require('../../../controllers/Sub_category.controller');
 // const AuthController = require('../../../controllers/Auth.controller');
 
@@ -40,6 +41,7 @@ const categoryController = new CategoryController(dependencies);
 const productController = new ProductController(dependencies);
 const prescriptionController = new PrescriptionController(dependencies);
 const cartController = new CartController(dependencies);
+const orderController = new OrderController(dependencies);
 
 // const authController = new AuthController(dependencies);
 
@@ -139,6 +141,10 @@ router.post(
   '/addtocart/:_id',
   cartController.addToCart,
 );
+router.delete(
+  '/removecart/:_id',
+  cartController.removeCartItem,
+);
 router.get(
   '/cart/total/:_id',
   cartController.getCartTotal,
@@ -146,5 +152,17 @@ router.get(
 router.delete(
   '/deletecart/:_id',
   cartController.deleteCart,
+);
+router.post(
+  '/order/createorder',
+  orderController.createOrder,
+);
+router.get(
+  '/order/:_id',
+  orderController.getOrder,
+);
+router.get(
+  '/order/',
+  orderController.getAllOrder,
 );
 module.exports = router;
