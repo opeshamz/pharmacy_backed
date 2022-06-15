@@ -165,4 +165,8 @@ router.get(
   '/order/',
   orderController.getAllOrder,
 );
+router.post(
+  '/orderstatus/:_id',
+  orderController.orderStatus,
+);
 module.exports = router;

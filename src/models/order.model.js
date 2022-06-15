@@ -4,8 +4,8 @@ const orderSchema = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
   },
-  order_items: [{
-    name: {
+  order_information: [{
+    ordered_item: {
       type: String,
     },
     quantity: {
@@ -23,26 +23,36 @@ const orderSchema = new Schema({
     image: {
       type: String,
     },
-    delivery_date: {
-      type: String,
-    },
     delivery_fee: {
       type: Number,
     },
     cart_total: {
       type: Number,
     },
+    order_date: {
+      type: String,
+    },
   }],
-  adderess: {
-    type: String,
-  },
-  payment_mode: {
-    type: String,
-  },
+  delivery_information: [{
+    name: {
+      type: String,
+    },
+    adderess: {
+      type: String,
+    },
+    phone_number: {
+      type: Number,
+    },
+  }],
+  payment_information: [{
+    payment_mode: {
+      type: String,
+    },
+    payment_datails: {
+      type: String,
+    },
+  }],
   total: {
-    type: Number,
-  },
-  phone_number: {
     type: Number,
   },
   order_status: {
