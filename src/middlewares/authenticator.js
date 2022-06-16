@@ -16,6 +16,7 @@ class Middlewares {
     this.logger = this.config.logger;
     this.verifyAllUserToken = this.verifyAllUserToken.bind(this);
     this.optionalTokenCheck = this.optionalTokenCheck.bind(this);
+    this.verifySuperAdmin = this.verifySuperAdmin.bind(this);
   }
 
   async verifyAllUserToken(req, res, next) {
@@ -45,7 +46,7 @@ class Middlewares {
         );
       }
       if (jwtToken) {
-        req.user = jwt.verify(jwtToken, this.config.SECRET);
+        req.user = jwt.verify(jwtToken, process.env.JWT_SECRET);
         // we are supposed to use the data here for next level stuff!
         return next();
       }

@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { logger, ...env } = require('../../../../config');
 const errors = require('../../../utils/errors');
 
-// const auth = require('../../../middlewares/authenticator');
+const auth = require('../../../middlewares/authenticator');
 // const checkValidID = require('../../../middlewares/checkValidID');
 
 const UserController = require('../../../controllers/User.controller');
@@ -42,26 +42,35 @@ router.post(
 );
 router.post(
   '/users/forgotpassword',
+  [auth.optionalTokenCheck, auth.verifyAllUserToken],
+  rules('forgotPassword'),
   authController.forgotPassword,
 );
 router.post(
   '/users/resetpassword',
+  [auth.optionalTokenCheck, auth.verifyAllUserToken],
+  rules('resetPassword'),
   authController.resetPassword,
 );
 router.patch(
   '/users/changepassword',
+  [auth.optionalTokenCheck, auth.verifyAllUserToken],
+  rules('changePassword'),
   authController.changePassword,
 );
 router.get(
   '/users/:_id',
+  [auth.optionalTokenCheck, auth.verifyAllUserToken],
   userController.getUser,
 );
 router.get(
   '/users/',
+  [auth.optionalTokenCheck, auth.verifyAllUserToken, auth.verifySuperAdmin],
   userController.getAllUser,
 );
 router.delete(
   '/users/deleteuser/:_id',
+  [auth.optionalTokenCheck, auth.verifyAllUserToken, auth.verifySuperAdmin],
   userController.deleteUser,
 );
 module.exports = router;

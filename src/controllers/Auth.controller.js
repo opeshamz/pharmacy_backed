@@ -56,7 +56,7 @@ class AuthController {
       throw new this.e.UnauthorizedError('invalid password');
     }
     const { user } = auth;
-    const token = jwt.sign(user, process.env.JWT_SEC, { expiresIn: '7d' });
+    const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '7d' });
     const response = { user_data: auth.user, token, expires: '7 days' };
     return successResponse(res, 200, response, 'user successfully logged in');
   }
