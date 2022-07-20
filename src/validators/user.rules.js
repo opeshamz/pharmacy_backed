@@ -15,6 +15,7 @@ exports.register = keys({
   first_name: requiredString.max(50).description('User first name'),
   last_name: requiredString.max(50).description('User last name'),
   phone_number: requiredString.max(50).description('User phone number'),
+  gender: requiredString,
 });
 
 exports.login = keys({
